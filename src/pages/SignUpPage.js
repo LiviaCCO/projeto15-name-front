@@ -3,22 +3,28 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import imageLogo from "./logo.jpg";
+import differenceInYears from "date-fns/differenceInYears";
 
 
 export default function SignUpPage() {
 
-  const [form, setForm] = useState({ name: "", email: "", password: "", cpfCnpj: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", cpfCnpj: "" , date: ""});
   const [emailConfirm, setEmailConfirm] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isChecked, setIsCheck] = useState(false);
+  const today= new Date();
+  const birthdayInMs = new Date(form.date);
+  const years = differenceInYears(today, birthdayInMs);
+    
   //const navigate = useNavigate();
   
   function signUp(e){
       e.preventDefault();
+      console.log(years);
       if(form.email!==emailConfirm) return alert("E-mail divergente. Por favor, confirme seu e-mail!");
       if(form.password!==passwordConfirm) return alert("As senhas devem ser iguais!");
       if(isChecked===false) return alert("Você precisa ler e concordar com os termos de uso do ArtSell");
-
+      if(years < 18) return alert("Desculpe! Este app não é permitido para menores de 18 anos!");
       console.log("Sucesso", form)
 
     /*   axios.post("xxxxxxxxxxx", form)
@@ -39,11 +45,17 @@ export default function SignUpPage() {
         onChange={(e) => setForm({ ...form, cpfCnpj: e.target.value })}
         />   
         <input 
-        placeholder="Nome Completo" 
+        placeholder="Nome completo" 
         type="text" 
         value={form.name}
         onChange={(e) => setForm({ ...form, name: e.target.value })}
-        />                    
+        />  
+        <input 
+        placeholder="Data de nascimento" 
+        type="date" 
+        value={form.date}
+        onChange={(e) => setForm({ ...form, date: e.target.value })}
+        />                   
         <input 
         placeholder="E-mail" 
         type="email" 
