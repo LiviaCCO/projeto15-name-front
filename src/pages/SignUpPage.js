@@ -86,7 +86,7 @@ export default function SignUpPage() {
         <input type="checkbox"
         checked={isChecked}
         onChange={(e) => setIsCheck(e.target.checked)}/>
-        Li e condordo com os <Link to={"/login"}>termos de uso do ArtSell</Link>.
+        Li e condordo com os <Link to={"/regulamento"}>termos de uso do ArtSell</Link>.
         </Reg>
         <button type="submit">Finalizar cadastro</button>
       </form>
